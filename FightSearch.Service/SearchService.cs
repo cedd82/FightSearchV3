@@ -10,8 +10,8 @@
 	using FightSearch.Common.Enums;
 	using FightSearch.Common.Settings;
 	using FightSearch.Repository.Sql;
-	using FightSearch.Repository.Sql.Entities;
-	using FightSearch.Service.DomainModels;
+    using FightSearch.Repository.Sql.Entities;
+    using FightSearch.Service.DomainModels;
 	using FightSearch.Service.ViewModels;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Options;
@@ -69,7 +69,7 @@
 		                                                  //imgUrl
 		                                                  //imageForWebOriginal    for spoilers
 		                                                  //imageForWebNameMixed   for spoilers 
-		                                                  WId = wikiFightWeb.WikiFightId,
+		                                                  WId = wikiFightWeb.WikiFightId.Value,
 		                                                  Fighter1Name = wikiFightWeb.Fighter1Name,
 		                                                  Fighter1NameOriginal = wikiFightWeb.Fighter1Name,
 		                                                  Fighter2Name = wikiFightWeb.Fighter2Name,
@@ -77,9 +77,9 @@
 		                                                  FightResultHow = wikiFightWeb.FightResultHow,
 		                                                  Round = wikiFightWeb.Round,
 		                                                  Time = wikiFightWeb.Time,
-		                                                  TotalTime = wikiFightWeb.TotalTime,
+		                                                  TotalTime = wikiFightWeb.TotalTime.Value,
 		                                                  WEventName = wikiFightWeb.EventName,
-		                                                  DateHeld = wikiFightWeb.DateHeld,
+		                                                  DateHeld = wikiFightWeb.DateHeld.Value,
 		                                                  VideoLink = wikiFightWeb.VideoLink,
 		                                                  Rank = wikiFightWeb.RedditTopFights,
 		                                                  Fotn = wikiFightWeb.Fotn,

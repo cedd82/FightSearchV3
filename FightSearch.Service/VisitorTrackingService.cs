@@ -1,9 +1,10 @@
 ﻿namespace FightSearch.Service
 {
-	using System.Threading.Tasks;
+    using System;
+    using System.Threading.Tasks;
 
 	using FightSearch.Repository.Sql;
-	using FightSearch.Repository.Sql.Entities;
+    using FightSearch.Repository.Sql.Entities;
 
 	using Microsoft.EntityFrameworkCore;
 
@@ -23,15 +24,25 @@
 		// keeps a count of how many times a video was clicked
 		public async Task LinkClicked(int wikiFightId)
 		{
-			WikiFight wikiFight = await fightSearchEntities.WikiFight.SingleOrDefaultAsync(e => e.Id == wikiFightId);
-			if (wikiFight == null)
-			{
-				return;
-			}
-
-			wikiFight.WatchCount = wikiFight.WatchCount ?? 0;
-			wikiFight.WatchCount++;
-			await fightSearchEntities.CommitAsync();
+            WatchCount watchCount = await fightSearchEntities.WatchCount.SingleOrDefaultAsync(e => e.WikiFightId == wikiFightId);
+			if (watchCount == null)
+            {
+                watchCount = new WatchCount
+                {
+                    Count = 1,
+                    UpdateDateTime = DateTime.UtcNow,
+                    WikiFightId = wikiFightId
+                };
+                fightSearchEntities.WatchCount.Add(watchCount);
+            }
+            else
+            {
+                
+                watchCount.Count++;
+                watchCount.UpdateDateTime = DateTime.UtcNow;
+                
+            }
+            await fightSearchEntities.SaveChangesAsync();
 		}
 	}
 }

@@ -1,41 +1,48 @@
-﻿using System.Threading.Tasks;
-using FightSearch.Repository.Sql.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿//using System.Threading.Tasks;
+////using FightSearch.Repository.Sql.EntitiesOld;
+//using Microsoft.EntityFrameworkCore;
 
-namespace FightSearch.Repository.Sql
-{
-	public class FightSearchEntities : DbContext, IFightSearchEntities
-	{
-		public FightSearchEntities(DbContextOptions<FightSearchEntities> options) : base(options)
-		{
-		}
+//namespace FightSearch.Repository.Sql
+//{
+//    using FightSearch.Repository.Sql.Entities;
+    
+//    //using FightSearch.Repository.Sql.EntitiesOld;
 
-		public void Commit()
-		{
-			SaveChanges();
-		}
+//    using Fight = FightSearch.Repository.Sql.Entities.Fight;
+//    using WikiEvent = FightSearch.Repository.Sql.Entities.WikiEvent;
 
-		public async Task CommitAsync()
-		{
-			await SaveChangesAsync();
-		}
+//    public class FightSearchEntities : DbContext, IFightSearchEntities
+//	{
+//		public FightSearchEntities(DbContextOptions<FightSearchEntities> options) : base(options)
+//		{
+//		}
 
-		//DbSet<T> IFightSearchEntities.Set<T>()
-		//{
-		//	return Set<T>();
-		//}
-		public DbSet<Fight> Fight { get; set; }
-		public DbSet<WikiEvent> WikiEvent { get; set; }
-		public DbSet<WikiFight> WikiFight { get; set; }
-		public DbSet<WikiFightWeb> WikiFightWeb { get; set; }
+//		public void Commit()
+//		{
+//			SaveChanges();
+//		}
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-		}
+//		public async Task CommitAsync()
+//		{
+//			await SaveChangesAsync();
+//		}
+//        public virtual DbSet<Fight> Fight { get; set; }
+//        public virtual DbSet<FightPassVideoScrape> FightPassVideoScrape { get; set; }
+//        public virtual DbSet<NameChange> NameChange { get; set; }
+//        public virtual DbSet<SearchTermHistory> SearchTermHistory { get; set; }
+//        public virtual DbSet<Visitor> Visitor { get; set; }
+//        public virtual DbSet<WatchCount> WatchCount { get; set; }
+//        public DbSet<WikiEvent> WikiEvent { get; set; }
+//		public DbSet<WikiFight> WikiFight { get; set; }
+//		public DbSet<WikiFightWeb> WikiFightWeb { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
+//		protected override void OnModelCreating(ModelBuilder modelBuilder)
+//		{
+//		}
+
+//		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//		{
 			
-		}
-	}
-}
+//		}
+//	}
+//}

@@ -6,7 +6,8 @@
 	using System.Linq.Expressions;
 	using System.Threading.Tasks;
 	using FightSearch.Repository.Sql;
-	using FightSearch.Repository.Sql.Entities;
+    using FightSearch.Repository.Sql.Entities;
+    using FightSearch.Repository.Sql.EntitiesOld;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Caching.Memory;
 

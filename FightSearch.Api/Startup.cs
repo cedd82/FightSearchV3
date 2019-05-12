@@ -1,5 +1,6 @@
 ﻿namespace FightSearch.Api
 {
+    using FightSearch.Api.helpers;
     using FightSearch.Common;
     using FightSearch.Common.Settings;
     using FightSearch.Repository.Sql;
@@ -9,7 +10,6 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.HttpOverrides;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ApplicationModels;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +30,7 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
@@ -53,7 +54,8 @@
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fight Search Api V1");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "swagger/ui";
+                //c.RoutePrefix = string.Empty;
             });
             app.UseMvc();
         }
@@ -77,25 +79,11 @@
             services.Configure<ImagePaths>(Configuration.GetSection("ImagePaths"));
             services.AddEntityFrameworkSqlServer();
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<FightSearchEntities>(options => options.UseSqlServer(connectionString));
-            services.AddScoped<IFightSearchEntities, FightSearchEntities>();
+            services.AddDbContext<UfcContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<IFightSearchEntities, UfcContext>();
             services.AddScoped<IVisitorTrackingService, VisitorTrackingService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IFighterNameService, FighterNameService>();
-        }
-    }
-
-    //public class ApiExplorerIgnores : IApplicationModelConvention
-    //{ }
-
-    public class ApiExplorerIgnores : IActionModelConvention
-    {
-        public void Apply(ActionModel action)
-        {
-            if (action.Controller.ControllerName.Equals("Pwa"))
-            {
-                action.ApiExplorer.IsVisible = false;
-            }
         }
     }
 }

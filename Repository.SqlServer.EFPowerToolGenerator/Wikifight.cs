@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FightSearch.Repository.Sql.Entities
+namespace FightSearch.Repository.Sql.EntitiesOld
 {
-    [Table("WikiFight")]
-    public partial class WikiFight
+    [Table("wikifight")]
+    public partial class Wikifight
     {
         public int Id { get; set; }
         [StringLength(2056)]

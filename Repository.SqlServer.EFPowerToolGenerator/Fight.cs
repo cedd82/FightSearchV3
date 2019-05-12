@@ -1,16 +1,16 @@
-﻿namespace FightSearch.Repository.Sql.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FightSearch.Repository.Sql.EntitiesOld
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    
     [Table("fight")]
     public partial class Fight
     {
         public Fight()
         {
-            Wikifight = new HashSet<WikiFight>();
+            Wikifight = new HashSet<Wikifight>();
         }
 
         public int Id { get; set; }
@@ -54,6 +54,6 @@
         public DateTime InsertDateTime { get; set; }
 
         [InverseProperty("Fight")]
-        public virtual ICollection<WikiFight> Wikifight { get; set; }
+        public virtual ICollection<Wikifight> Wikifight { get; set; }
     }
 }
