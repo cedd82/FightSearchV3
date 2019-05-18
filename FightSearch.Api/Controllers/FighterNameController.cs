@@ -6,8 +6,10 @@
 
     using FightSearch.Service;
 
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
 
+    [EnableCors("Cors")]
     [Produces("application/json")]
 	[Route("api/[controller]")]
 	public class FighterNameController : Controller

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FightSearch.Repository.Sql.EntitiesOld
+namespace Repository.SqlServer.EFPowerToolGenerator
 {
-    [Table("wikifight")]
-    public partial class Wikifight
+    public partial class WikiFight
     {
         public int Id { get; set; }
         [StringLength(2056)]
@@ -65,10 +64,10 @@ namespace FightSearch.Repository.Sql.EntitiesOld
         public string ImagePath { get; set; }
 
         [ForeignKey("EventId")]
-        [InverseProperty("Wikifight")]
+        [InverseProperty("WikiFight")]
         public virtual WikiEvent Event { get; set; }
         [ForeignKey("FightId")]
-        [InverseProperty("Wikifight")]
+        [InverseProperty("WikiFight")]
         public virtual Fight Fight { get; set; }
         [InverseProperty("WikiFight")]
         public virtual WatchCount WatchCountNavigation { get; set; }

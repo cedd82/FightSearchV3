@@ -10,7 +10,7 @@ namespace FightSearch.Repository.Sql.Entities
         public WikiEvent()
         {
             Wikifight = new HashSet<WikiFight>();
-            WikifightWeb = new HashSet<WikiFightWeb>();
+            //WikifightWeb = new HashSet<WikiFightWeb>();
         }
 
         public int Id { get; set; }
@@ -34,7 +34,7 @@ namespace FightSearch.Repository.Sql.Entities
 
         [InverseProperty("Event")]
         public virtual ICollection<WikiFight> Wikifight { get; set; }
-        [InverseProperty("Event")]
-        public virtual ICollection<WikiFightWeb> WikifightWeb { get; set; }
+        //[InverseProperty("Event")]
+        //public virtual ICollection<WikiFightWeb> WikifightWeb { get; set; }
     }
 }

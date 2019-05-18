@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FightSearch.Repository.Sql.EntitiesOld
+namespace Repository.SqlServer.EFPowerToolGenerator
 {
     public partial class Visitor
     {

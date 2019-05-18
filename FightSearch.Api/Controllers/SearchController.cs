@@ -6,8 +6,10 @@
     using FightSearch.Service.DomainModels;
     using FightSearch.Service.ViewModels;
 
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
 
+    [EnableCors("Cors")]
     [Produces("application/json")]
 	[Route("api/[controller]")]
 	public class SearchController : Controller
@@ -22,7 +24,7 @@
 
 		[Route("Search", Name = "Search")]
 		[HttpPost]
-		public async Task<ActionResult<SearchResultPaged>> Search([FromBody] SearchQuery searchQuery)
+		public async Task<ActionResult<SearchResultPaged>> All([FromBody] SearchQuery searchQuery)
 		{
 		    if (searchQuery.SearchParams.Sfn != null)
 		    {
@@ -46,7 +48,7 @@
     #if !DEBUG
 		[ResponseCache(Duration = 864000)]
     #endif
-		public async Task<ActionResult<SearchResultPaged>> SearchAwardFights([FromBody] SearchQuery searchQuery)
+		public async Task<ActionResult<SearchResultPaged>> AwardFights([FromBody] SearchQuery searchQuery)
 		{
 			SearchResultPaged fightSearchResults = await _searchService.FindAwardFightsAsync(searchQuery);
 			return fightSearchResults;
@@ -57,7 +59,7 @@
     #if !DEBUG
 		[ResponseCache(Duration = 864000)]
     #endif
-		public async Task<ActionResult<SearchResultPaged>> SearchTitleFights([FromBody] SearchQuery searchQuery)
+		public async Task<ActionResult<SearchResultPaged>> TitleFights([FromBody] SearchQuery searchQuery)
 		{
 			SearchResultPaged fightSearchResults = await _searchService.FindTitleFightsAsync(searchQuery);
 			return fightSearchResults;
@@ -69,7 +71,7 @@
     #if !DEBUG
         [ResponseCache(Duration = 864000)]
     #endif
-		public async Task<ActionResult<SearchResultPaged>> SearchTopRedditFights([FromBody] SearchQuery searchQuery)
+		public async Task<ActionResult<SearchResultPaged>> TopRedditFights([FromBody] SearchQuery searchQuery)
 		{
 			SearchResultPaged fightSearchResults = await _searchService.FindTopRedditFightsAsync(searchQuery);
 			return fightSearchResults;

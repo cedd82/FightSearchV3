@@ -7,8 +7,7 @@
 	using System.Threading.Tasks;
 	using FightSearch.Repository.Sql;
     using FightSearch.Repository.Sql.Entities;
-    using FightSearch.Repository.Sql.EntitiesOld;
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Caching.Memory;
 
 	/// Retrieves unique fighter names dependent on the page if fighters exist for the fights being queried.
@@ -31,7 +30,7 @@
 			    {
 				    entry.SlidingExpiration = TimeSpan.FromDays(5);
 				    //entry.SlidingExpiration = TimeSpan.FromSeconds(1);
-					Expression<Func<WikiFightWeb, bool>> query = wf => wf.FightId != null;
+					Expression<Func<WikiFightWeb, bool>> query = wf => true;
 				    IEnumerable<string> fighterNames = await GetNames(query);
 				    return fighterNames;
 			    });
@@ -43,7 +42,7 @@
 		    IEnumerable<string> cacheEntry = await memoryCache.GetOrCreateAsync("UniqueTitleFighterNames", async entry =>
 			    {
 				    entry.SlidingExpiration = TimeSpan.FromDays(5);
-				    Expression<Func<WikiFightWeb, bool>> query = wf => wf.FightId != null && wf.TitleFight;
+				    Expression<Func<WikiFightWeb, bool>> query = wf => wf.TitleFight;
 				    IEnumerable<string> fighterNames = await GetNames(query);
 				    return fighterNames;
 			    });
@@ -55,7 +54,7 @@
 		    IEnumerable<string> cacheEntry = await memoryCache.GetOrCreateAsync("UniqueTitleFighterNames", async entry =>
 			    {
 				    entry.SlidingExpiration = TimeSpan.FromDays(5);
-				    Expression<Func<WikiFightWeb, bool>> query = wf => wf.FightId != null && (wf.Potn || wf.Fotn);
+				    Expression<Func<WikiFightWeb, bool>> query = wf => (wf.Potn || wf.Fotn);
 				    IEnumerable<string> fighterNames = await GetNames(query);
 				    return fighterNames;
 			    });

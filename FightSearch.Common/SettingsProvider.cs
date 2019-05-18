@@ -6,13 +6,13 @@
 
     public static class SettingsProvider
     {
-        public static IConfigurationRoot Configuration { get; set; }
+        public static IConfiguration Configuration { get; set; }
         public static IHostingEnvironment HostingEnvironment { get; set; }
         public static ILoggerFactory LoggerFactory { get; set; }
 
-        public static void SetConfiguration(IConfigurationRoot configurationRoot)
+        public static void SetConfiguration(IConfiguration configuration)
         {
-            Configuration = configurationRoot;
+            Configuration = configuration;
         }
 
         public static void SetHostingEnvironment(IHostingEnvironment hostingEnvironment)

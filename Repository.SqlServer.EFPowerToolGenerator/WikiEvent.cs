@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FightSearch.Repository.Sql.EntitiesOld
+namespace Repository.SqlServer.EFPowerToolGenerator
 {
     public partial class WikiEvent
     {
         public WikiEvent()
         {
-            Wikifight = new HashSet<Wikifight>();
-            WikifightWeb = new HashSet<WikifightWeb>();
+            WikiFight = new HashSet<WikiFight>();
+            WikiFightWeb = new HashSet<WikiFightWeb>();
         }
 
         public int Id { get; set; }
@@ -33,8 +33,8 @@ namespace FightSearch.Repository.Sql.EntitiesOld
         public bool? Processed { get; set; }
 
         [InverseProperty("Event")]
-        public virtual ICollection<Wikifight> Wikifight { get; set; }
+        public virtual ICollection<WikiFight> WikiFight { get; set; }
         [InverseProperty("Event")]
-        public virtual ICollection<WikifightWeb> WikifightWeb { get; set; }
+        public virtual ICollection<WikiFightWeb> WikiFightWeb { get; set; }
     }
 }

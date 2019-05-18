@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FightSearch.Repository.Sql.EntitiesOld
+namespace Repository.SqlServer.EFPowerToolGenerator
 {
     public partial class WatchCount
     {
@@ -14,6 +14,6 @@ namespace FightSearch.Repository.Sql.EntitiesOld
 
         [ForeignKey("WikiFightId")]
         [InverseProperty("WatchCountNavigation")]
-        public virtual Wikifight WikiFight { get; set; }
+        public virtual WikiFight WikiFight { get; set; }
     }
 }

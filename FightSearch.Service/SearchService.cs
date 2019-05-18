@@ -69,7 +69,7 @@
 		                                                  //imgUrl
 		                                                  //imageForWebOriginal    for spoilers
 		                                                  //imageForWebNameMixed   for spoilers 
-		                                                  WId = wikiFightWeb.WikiFightId.Value,
+		                                                  WId = wikiFightWeb.WikiFightId,
 		                                                  Fighter1Name = wikiFightWeb.Fighter1Name,
 		                                                  Fighter1NameOriginal = wikiFightWeb.Fighter1Name,
 		                                                  Fighter2Name = wikiFightWeb.Fighter2Name,
@@ -77,9 +77,9 @@
 		                                                  FightResultHow = wikiFightWeb.FightResultHow,
 		                                                  Round = wikiFightWeb.Round,
 		                                                  Time = wikiFightWeb.Time,
-		                                                  TotalTime = wikiFightWeb.TotalTime.Value,
+		                                                  TotalTime = wikiFightWeb.TotalTime,
 		                                                  WEventName = wikiFightWeb.EventName,
-		                                                  DateHeld = wikiFightWeb.DateHeld.Value,
+		                                                  DateHeld = wikiFightWeb.DateHeld,
 		                                                  VideoLink = wikiFightWeb.VideoLink,
 		                                                  Rank = wikiFightWeb.RedditTopFights,
 		                                                  Fotn = wikiFightWeb.Fotn,

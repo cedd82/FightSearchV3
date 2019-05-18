@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace FightSearch.Repository.Sql.EntitiesOld
+namespace Repository.SqlServer.EFPowerToolGenerator
 {
     public partial class UfcContext : DbContext
     {
@@ -16,6 +16,7 @@ namespace FightSearch.Repository.Sql.EntitiesOld
         }
 
         public virtual DbSet<Fight> Fight { get; set; }
+        public virtual DbSet<FightPassVideoScrape> FightPassVideoScrape { get; set; }
         public virtual DbSet<Fighter> Fighter { get; set; }
         public virtual DbSet<FighterNickName> FighterNickName { get; set; }
         public virtual DbSet<NameChange> NameChange { get; set; }
@@ -23,8 +24,8 @@ namespace FightSearch.Repository.Sql.EntitiesOld
         public virtual DbSet<Visitor> Visitor { get; set; }
         public virtual DbSet<WatchCount> WatchCount { get; set; }
         public virtual DbSet<WikiEvent> WikiEvent { get; set; }
-        public virtual DbSet<Wikifight> Wikifight { get; set; }
-        public virtual DbSet<WikifightWeb> WikifightWeb { get; set; }
+        public virtual DbSet<WikiFight> WikiFight { get; set; }
+        public virtual DbSet<WikiFightWeb> WikiFightWeb { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -57,28 +58,29 @@ namespace FightSearch.Repository.Sql.EntitiesOld
                     .HasConstraintName("FK_WatchCount_WikiFight");
             });
 
-            modelBuilder.Entity<Wikifight>(entity =>
+            modelBuilder.Entity<WikiFight>(entity =>
             {
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.Wikifight)
+                    .WithMany(p => p.WikiFight)
                     .HasForeignKey(d => d.EventId)
                     .HasConstraintName("FK_wikifight_WikiEvent");
 
                 entity.HasOne(d => d.Fight)
-                    .WithMany(p => p.Wikifight)
+                    .WithMany(p => p.WikiFight)
                     .HasForeignKey(d => d.FightId)
                     .HasConstraintName("FK_wikifight_fight");
             });
 
-            modelBuilder.Entity<WikifightWeb>(entity =>
+            modelBuilder.Entity<WikiFightWeb>(entity =>
             {
                 entity.Property(e => e.ImageForWeb).IsUnicode(false);
 
                 entity.Property(e => e.ImagePath).IsUnicode(false);
 
                 entity.HasOne(d => d.Event)
-                    .WithMany(p => p.WikifightWeb)
+                    .WithMany(p => p.WikiFightWeb)
                     .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_wikifightWeb_WikiEvent");
             });
 

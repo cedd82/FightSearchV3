@@ -1,1 +1,59 @@
-﻿{"ContextClassName":"UfcContext","DefaultDacpacSchema":null,"IdReplace":false,"IncludeConnectionString":true,"OutputPath":"","ProjectRootNamespace":"Repository.SqlServer.EFPowerToolGenerator","SelectedToBeGenerated":0,"Tables":[{"HasPrimaryKey":true,"Name":"dbo.fight"},{"HasPrimaryKey":true,"Name":"dbo.Fighter"},{"HasPrimaryKey":true,"Name":"dbo.FighterNickName"},{"HasPrimaryKey":true,"Name":"dbo.NameChange"},{"HasPrimaryKey":true,"Name":"dbo.SearchTermHistory"},{"HasPrimaryKey":true,"Name":"dbo.Visitor"},{"HasPrimaryKey":true,"Name":"dbo.WatchCount"},{"HasPrimaryKey":true,"Name":"dbo.WikiEvent"},{"HasPrimaryKey":true,"Name":"dbo.wikifight"},{"HasPrimaryKey":true,"Name":"dbo.wikifightWeb"}],"UseDatabaseNames":false,"UseFluentApiOnly":false,"UseHandleBars":false,"UseInflector":false}
+﻿{
+  "ContextClassName": "UfcContext",
+  "DefaultDacpacSchema": null,
+  "IdReplace": false,
+  "IncludeConnectionString": true,
+  "OutputPath": "",
+  "ProjectRootNamespace": "Repository.SqlServer.EFPowerToolGenerator",
+  "SelectedToBeGenerated": 0,
+  "Tables": [
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.Fight"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.Fighter"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.FighterNickName"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.FightPassVideoScrape"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.NameChange"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.SearchTermHistory"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.Visitor"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.WatchCount"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.WikiEvent"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.WikiFight"
+    },
+    {
+      "HasPrimaryKey": true,
+      "Name": "dbo.WikiFightWeb"
+    }
+  ],
+  "UseDatabaseNames": false,
+  "UseFluentApiOnly": false,
+  "UseHandleBars": false,
+  "UseInflector": false
+}

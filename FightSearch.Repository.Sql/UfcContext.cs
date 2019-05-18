@@ -103,18 +103,18 @@ namespace FightSearch.Repository.Sql
             modelBuilder.Entity<WatchCount>(entity =>
             {
                 entity.HasKey(e => e.WikiFightId)
-                    .HasName("PK_WatchCount_1");
+                      .HasName("PK_WatchCount_1");
 
                 entity.Property(e => e.WikiFightId).ValueGeneratedNever();
 
                 entity.HasOne(d => d.WikiFight)
-                    .WithOne(p => p.WatchCountNavigation)
-                    .HasForeignKey<WatchCount>(d => d.WikiFightId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WatchCount_WikiFight");
+                      .WithOne(p => p.WatchCountNavigation)
+                      .HasForeignKey<WatchCount>(d => d.WikiFightId)
+                      .OnDelete(DeleteBehavior.ClientSetNull)
+                      .HasConstraintName("FK_WatchCount_WikiFight");
             });
 
-            modelBuilder.Entity<Entities.WikiFight>(entity =>
+            modelBuilder.Entity<WikiFight>(entity =>
             {
                 entity.HasOne(d => d.Event)
                     .WithMany(p => p.Wikifight)
@@ -127,16 +127,29 @@ namespace FightSearch.Repository.Sql
                     .HasConstraintName("FK_wikifight_fight");
             });
 
-            modelBuilder.Entity<Entities.WikiFightWeb>(entity =>
+            //modelBuilder.Entity<WikiEvent>(entity =>
+            //{
+            //    entity.HasMany(d => d.Wikifight)
+            //          .WithOne(p => p.Event)
+            //          .HasForeignKey(d => d.EventId)
+            //          .HasConstraintName("FK_wikifight_WikiEvent");
+
+            //    entity.HasOne(d => d.Fight)
+            //          .WithMany(p => p.Wikifight)
+            //          .HasForeignKey(d => d.FightId)
+            //          .HasConstraintName("FK_wikifight_fight");
+            //});
+
+            modelBuilder.Entity<WikiFightWeb>(entity =>
             {
                 entity.Property(e => e.ImageForWeb).IsUnicode(false);
 
                 entity.Property(e => e.ImagePath).IsUnicode(false);
 
-                entity.HasOne(d => d.Event)
-                    .WithMany(p => p.WikifightWeb)
-                    .HasForeignKey(d => d.EventId)
-                    .HasConstraintName("FK_wikifightWeb_WikiEvent");
+                //entity.HasOne(d => d.Event)
+                //    .WithMany(p => p.WikifightWeb)
+                //    .HasForeignKey(d => d.EventId)
+                //    .HasConstraintName("FK_wikifightWeb_WikiEvent");
             });
 
             OnModelCreatingPartial(modelBuilder);

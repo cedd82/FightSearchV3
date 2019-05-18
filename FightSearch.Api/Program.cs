@@ -36,15 +36,16 @@
                                                      //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
                                                      //.AddJsonFile($"certificate.{env}.json", optional: true, reloadOnChange: true);
 
-                                                     IConfigurationRoot configurationRoot = config.Build();
+                                                     //IConfigurationRoot configurationRoot = config.Build();
                                                      ////IConfigurationSection certificateSettings = configurationRoot.GetSection("certificateSettings");
                                                      //Configuration = configurationRoot;
-                                                     SettingsProvider.SetConfiguration(configurationRoot);
-                                                     SettingsProvider.SetHostingEnvironment(environment);
+                                                     //SettingsProvider.SetConfiguration(configurationRoot);
+                                                     //SettingsProvider.SetHostingEnvironment(environment);
                                                  })
                                                  .ConfigureLogging((hostContext, configLogging) =>
                                                  {
                                                      configLogging.ClearProviders();
+                                                     configLogging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
                                                      //LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString("DefaultConnection");
                                                  })
                                                  .UseNLog();

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FightSearch.Repository.Sql.EntitiesOld
+namespace Repository.SqlServer.EFPowerToolGenerator
 {
-    [Table("fight")]
     public partial class Fight
     {
         public Fight()
         {
-            Wikifight = new HashSet<Wikifight>();
+            WikiFight = new HashSet<WikiFight>();
         }
 
         public int Id { get; set; }
@@ -54,6 +53,6 @@ namespace FightSearch.Repository.Sql.EntitiesOld
         public DateTime InsertDateTime { get; set; }
 
         [InverseProperty("Fight")]
-        public virtual ICollection<Wikifight> Wikifight { get; set; }
+        public virtual ICollection<WikiFight> WikiFight { get; set; }
     }
 }
