@@ -88,9 +88,10 @@
             services.Configure<ImagePaths>(Configuration.GetSection("ImagePaths"));
             services.AddEntityFrameworkSqlServer();
             //string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UfcContext>(options => 
+            services.AddDbContext<UfcContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                string connectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(connectionString);
                 //IHostingEnvironment hostingEnvironment = SettingsProvider.HostingEnvironment;
                 //ILoggerFactory loggerFactory = SettingsProvider.LoggerFactory;
                 
