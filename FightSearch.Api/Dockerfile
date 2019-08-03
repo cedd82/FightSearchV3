@@ -1,15 +1,17 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 800
+EXPOSE 4433
 
-FROM microsoft/dotnet:2.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
-COPY ["FightSearch3/FightSearch.Api.csproj", "FightSearch.Api/"]
+COPY ["FightSearch.Api/FightSearch.Api.csproj", "FightSearch.Api/"]
+COPY ["FightSearch.Service/FightSearch.Service.csproj", "FightSearch.Service/"]
 COPY ["FightSearch.Common/FightSearch.Common.csproj", "FightSearch.Common/"]
-RUN dotnet restore "FightSearch3/FightSearch.Api.csproj"
+COPY ["FightSearch.Repository.Sql/FightSearch.Repository.Sql.csproj", "FightSearch.Repository.Sql/"]
+RUN dotnet restore "FightSearch.Api/FightSearch.Api.csproj"
 COPY . .
-WORKDIR "/src/FightSearch3"
+WORKDIR "/src/FightSearch.Api"
 RUN dotnet build "FightSearch.Api.csproj" -c Release -o /app
 
 FROM build AS publish

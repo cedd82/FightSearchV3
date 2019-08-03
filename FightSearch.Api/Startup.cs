@@ -1,5 +1,7 @@
 ﻿namespace FightSearch.Api
 {
+    using System.Diagnostics;
+
     using FightSearch.Api.helpers;
     using FightSearch.Common;
     using FightSearch.Common.Settings;
@@ -23,6 +25,7 @@
         public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory)
         {
             Configuration = configuration;
+            Debug.WriteLine(Configuration.GetConnectionString("DefaultConnection"));
             SettingsProvider.SetLoggerFactory(loggerFactory);
             //SettingsProvider.SetConfiguration(configuration);
             SettingsProvider.SetHostingEnvironment(hostingEnvironment);

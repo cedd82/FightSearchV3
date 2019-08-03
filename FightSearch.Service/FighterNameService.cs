@@ -65,7 +65,7 @@
 	    {
 		    IEnumerable<string> fighter1Names = await fightSearchEntities.WikiFightWeb.AsNoTracking().Where(filterQuery).Select(f => f.Fighter1Name).Distinct().ToListAsync();
 		    IEnumerable<string> fighter2Names = await fightSearchEntities.WikiFightWeb.AsNoTracking().Where(filterQuery).Select(f => f.Fighter2Name).Distinct().ToListAsync();
-		    IEnumerable<string> fighterNames = fighter2Names.Union(fighter1Names).OrderBy(name => name).ToList();
+            IEnumerable<string> fighterNames = fighter2Names.Union(fighter1Names).OrderBy(name => name);
 		    return fighterNames;
 	    }
     }

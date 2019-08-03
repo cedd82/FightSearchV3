@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  fightsearch.api:
+    image: '${DOCKER_REGISTRY-}fightsearchapi'
+    build:
+      context: .
+      dockerfile: FightSearch.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 800:44334

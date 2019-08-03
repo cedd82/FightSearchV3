@@ -30,9 +30,9 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/fightername/GetUniqueFighterNames",
-      "httpPort": 55561,
-      "useSSL": true,
-      "sslPort": 44336
+      "httpPort": 55561
+      //"useSSL": true,
+      //"sslPort": 44336
     }
   }
 }
