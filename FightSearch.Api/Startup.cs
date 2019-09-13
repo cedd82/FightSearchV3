@@ -1,56 +1,66 @@
-﻿namespace FightSearch.Api
+﻿using System;
+using System.Net;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Diagnostics;
+
+using FightSearch.Api.helpers;
+using FightSearch.Common;
+using FightSearch.Common.Settings;
+using FightSearch.Repository.Sql;
+using FightSearch.Service;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+using Swashbuckle.AspNetCore.Swagger;
+
+namespace FightSearch.Api
 {
-    using System.Diagnostics;
-
-    using FightSearch.Api.helpers;
-    using FightSearch.Common;
-    using FightSearch.Common.Settings;
-    using FightSearch.Repository.Sql;
-    using FightSearch.Service;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpOverrides;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Diagnostics;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-
-    using Swashbuckle.AspNetCore.Swagger;
+    
 
     public class Startup
     {
         public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment, ILoggerFactory loggerFactory)
         {
             Configuration = configuration;
-            Debug.WriteLine(Configuration.GetConnectionString("DefaultConnection"));
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? Configuration.GetConnectionString("DefaultConnection");
+            Debug.WriteLine(connectionString);
             SettingsProvider.SetLoggerFactory(loggerFactory);
             //SettingsProvider.SetConfiguration(configuration);
             SettingsProvider.SetHostingEnvironment(hostingEnvironment);
         }
 
         private IConfiguration Configuration { get; }
+        private readonly string corsPolicy = "Cors";
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment environment, ILoggerFactory loggerFactory)
         {
-            app.UseStaticFiles();
+            //X-Forwarded-Host – the original host name
+            //X-Forwarded-Proto – the original scheme (http or https)
+            //X-Forwarded-For – the original IP
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-            if (environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+
+            app.UseStaticFiles();
+            if (!environment.IsDevelopment())
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseCors("Cors");
+
+            app.UseCors(corsPolicy);
             app.UseHttpsRedirection();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
@@ -63,6 +73,7 @@
                 c.RoutePrefix = "swagger/ui";
                 //c.RoutePrefix = string.Empty;
             });
+            app.UseCors(corsPolicy);
             app.UseMvc();
         }
 
@@ -70,15 +81,28 @@
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? Configuration.GetConnectionString("DefaultConnection");
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = 
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                //options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("::ffff:100.64.0.0"), 106));
+            });
+
             services.AddMvc(c =>
                     {
                         c.Conventions.Add(new ApiExplorerIgnores());
+                    })
+                    .AddJsonOptions(options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                        options.SerializerSettings.Formatting = Formatting.Indented;
                     })
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
                 
             services.AddCors(options =>
             {
-                options.AddPolicy("Cors", builder => builder
+                options.AddPolicy(corsPolicy, builder => builder
                                                      .AllowAnyOrigin()
                                                      .AllowAnyMethod()
                                                      .AllowAnyHeader());
@@ -93,7 +117,7 @@
             //string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UfcContext>(options =>
             {
-                string connectionString = Configuration.GetConnectionString("DefaultConnection");
+                //string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
                 //IHostingEnvironment hostingEnvironment = SettingsProvider.HostingEnvironment;
                 //ILoggerFactory loggerFactory = SettingsProvider.LoggerFactory;

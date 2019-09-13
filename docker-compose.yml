@@ -1,11 +1,19 @@
 version: '3.4'
+
 services:
   fightsearch.api:
-    image: '${DOCKER_REGISTRY-}fightsearchapi'
+    #image: ${DOCKER_REGISTRY-}fightsearchapi
     build:
       context: .
       dockerfile: FightSearch.Api/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - 800:44334
+    #environment:
+     # - ASPNETCORE_ENVIRONMENT=Development
+     # - ASPNETCORE_URLS=http://+:80;https://+:443
+     # - ASPNETCORE_HTTPS_PORT=5254 
+     # - ASPNETCORE_Kestrel__Certificates__Default__Password=crypticpassword
+     # - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    #ports:
+     # - "8000:80"
+      #- "8001:443"
+    #volumes:
+     # - ${HOME}/.aspnet/https:/https/

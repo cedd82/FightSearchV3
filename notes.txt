@@ -4,3 +4,14 @@ https://localhost:5001/swagger/
 56" x 42
 
 142 x 106.68
+
+#docker build -t myimage -f Dockerfile .
+docker build -t fightsearchapi -f Dockerfile .
+
+docker run -p <public_port>:<private_port> -d <image>  
+docker run -p 4443:433 -d fightsearchapi
+docker run -p 4443:433 -p 800:80 -d fightsearchapi
+
+
+to bash in 
+docker run -it --rm stoic_brattain bash

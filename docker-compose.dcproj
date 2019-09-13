@@ -3,9 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>fa8014ba-139f-433e-a469-fcc7a20a4ac8</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/fightername/GetUniqueFighterNames</DockerServiceUrl>
+    <ProjectGuid>69cf757b-7302-4976-9f12-74e12a35ff0e</ProjectGuid>
+<!--    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>-->
+        <DockerLaunchBrowser>True</DockerLaunchBrowser>
+    <DockerServiceUrl>http://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>fightsearch.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
