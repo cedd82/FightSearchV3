@@ -2,15 +2,16 @@
 using System.Net;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 
 using FightSearch.Api.helpers;
+using FightSearch.Api.Middlewear;
 using FightSearch.Common;
 using FightSearch.Common.Settings;
 using FightSearch.Repository.Sql;
+using FightSearch.Repository.SqlLight;
 using FightSearch.Service;
-
+using FightSearch.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -37,6 +38,14 @@ namespace FightSearch.Api
             SettingsProvider.SetLoggerFactory(loggerFactory);
             //SettingsProvider.SetConfiguration(configuration);
             SettingsProvider.SetHostingEnvironment(hostingEnvironment);
+
+            //using (var client = new UfcContextLite())
+            //{
+            //    //Create the database file at a path defined in SimpleDataStorage
+            //    client.Database.EnsureCreated();
+            //    //Create the database tables defined in SimpleDataStorage
+            //    client.Database.Migrate();
+            //}
         }
 
         private IConfiguration Configuration { get; }
@@ -52,7 +61,7 @@ namespace FightSearch.Api
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-
+            app.UseMiddleware<ExceptionHandler>();
             app.UseStaticFiles();
             if (!environment.IsDevelopment())
             {
@@ -96,6 +105,7 @@ namespace FightSearch.Api
                     .AddJsonOptions(options =>
                     {
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                         options.SerializerSettings.Formatting = Formatting.Indented;
                     })
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

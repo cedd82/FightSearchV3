@@ -1,4 +1,6 @@
-﻿namespace FightSearch.Service
+﻿using FightSearch.Service.Interfaces;
+
+namespace FightSearch.Service
 {
     using System;
     using System.Threading.Tasks;

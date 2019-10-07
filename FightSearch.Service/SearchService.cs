@@ -1,4 +1,7 @@
-﻿namespace FightSearch.Service
+﻿using FightSearch.Service.Interfaces;
+using FightSearch.Service.ResponseModels;
+
+namespace FightSearch.Service
 {
 	using System;
 	using System.Collections.Generic;
@@ -12,8 +15,7 @@
 	using FightSearch.Repository.Sql;
     using FightSearch.Repository.Sql.Entities;
     using FightSearch.Service.DomainModels;
-	using FightSearch.Service.ViewModels;
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Options;
 
 	/// <summary>

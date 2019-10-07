@@ -1,7 +1,7 @@
-﻿namespace FightSearch.Service.ViewModels
-{
-    using System;
+﻿using System;
 
+namespace FightSearch.Service.ResponseModels
+{
     public class SearchResult
     {
         public string AwardType { get; set; }

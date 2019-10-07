@@ -1,8 +1,8 @@
-﻿namespace FightSearch.Service.ViewModels
-{
-	using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-	public class SearchResultPaged
+namespace FightSearch.Service.ResponseModels
+{
+    public class SearchResultPaged
 	{
 		public int Count { get; set; }
         public IEnumerable<SearchResult> FightSearchResultsPaged { get; set; }

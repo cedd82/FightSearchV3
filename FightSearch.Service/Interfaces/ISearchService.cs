@@ -1,11 +1,10 @@
-﻿namespace FightSearch.Service
+﻿using System.Threading.Tasks;
+using FightSearch.Service.DomainModels;
+using FightSearch.Service.ResponseModels;
+
+namespace FightSearch.Service.Interfaces
 {
-	using System.Threading.Tasks;
-
-	using FightSearch.Service.DomainModels;
-	using FightSearch.Service.ViewModels;
-
-	/// <summary>
+    /// <summary>
 	/// Implements the logic used to find fights on a given page e.g. on the title fights page, the FindTitleFights method will be used.
 	/// Custom logic to prevent web scraping:
 	/// When returning the results, search all fights page will show content that is html markup or an image of the fight including

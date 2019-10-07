@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using FightSearch.Service;
 using FightSearch.Service.DomainModels;
-using FightSearch.Service.ViewModels;
+using FightSearch.Service.Interfaces;
+using FightSearch.Service.ResponseModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 

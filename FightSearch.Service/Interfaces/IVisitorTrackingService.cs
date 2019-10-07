@@ -1,8 +1,8 @@
-﻿namespace FightSearch.Service
-{
-	using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-	/// <summary>
+namespace FightSearch.Service.Interfaces
+{
+    /// <summary>
 	/// custom logic to track visitor behavior
 	/// </summary>
 	public interface IVisitorTrackingService

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FightSearch.Service;
+using FightSearch.Service.Interfaces;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
