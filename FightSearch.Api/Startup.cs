@@ -97,6 +97,7 @@ namespace FightSearch.Api
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
                 //options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("::ffff:100.64.0.0"), 106));
             });
+            //services.AddDbContext<UfcContextLite>(options => options.UseSqlite("data source=.\\UfcSqlite.sqlite"));
 
             services.AddMvc(c =>
                     {
@@ -147,11 +148,28 @@ namespace FightSearch.Api
                 options.UseLoggerFactory(SettingsProvider.LoggerFactory);
                 options.ConfigureWarnings(warn => { warn.Default(WarningBehavior.Log); });
             });
+
+            // config sqlite
+            DbContextOptionsBuilder<UfcContextLite> optionsBuilder = new DbContextOptionsBuilder<UfcContextLite>()
+                .UseSqlite(Configuration.GetConnectionString("SqLiteDefaultConnection"));
+            UfcContextLite context = new UfcContextLite(optionsBuilder.Options);
+            context.Database.EnsureCreated();
+            services.AddSingleton(optionsBuilder.Options);
+                    
+            //services.AddDbContextPool<UfcContextLite>(options => options.UseSqlite(Configuration.GetConnectionString("SqLiteDefaultConnection")));
+            services.AddDbContextPool<UfcContextLite>(options => options.UseSqlite(Configuration.GetConnectionString("SqLiteDefaultConnection")));
+            services.AddSingleton<UfcContextLite>(context);
+
+
             //services.AddDbContext<UfcContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IFightSearchEntities, UfcContext>();
-            services.AddScoped<IVisitorTrackingService, VisitorTrackingService>();
-            services.AddScoped<ISearchService, SearchService>();
-            services.AddScoped<IFighterNameService, FighterNameService>();
+            //services.AddScoped<IVisitorTrackingService, VisitorTrackingService>();
+            services.AddScoped<IVisitorTrackingService, VisitorTrackingServiceSqLite>();
+            
+            //services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<ISearchService, SearchServiceSqLite>();
+            //services.AddScoped<IFighterNameService, FighterNameService>();
+            services.AddScoped<IFighterNameService, FighterNameServiceSqLite>();
         }
     }
 }

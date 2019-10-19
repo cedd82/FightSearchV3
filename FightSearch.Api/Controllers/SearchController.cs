@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using FightSearch.Service;
 using FightSearch.Service.DomainModels;
 using FightSearch.Service.Interfaces;
 using FightSearch.Service.ResponseModels;
@@ -19,20 +18,29 @@ namespace FightSearch.Api.Controllers
         public SearchController(ISearchService searchService)
         {
             _searchService = searchService;
+            _scrapeMyself = false;
         }
 
         [Route("Search", Name = "Search")]
         [HttpPost]
         public async Task<ActionResult<SearchResultPaged>> All([FromBody] SearchQuery searchQuery)
         {
-            if (searchQuery.SearchParams.Sfn != null) _scrapeMyself = true;
+            if (searchQuery.SearchParams.Sfn != null)
+            {
+                _scrapeMyself = true;
+            }
 
+            _scrapeMyself = false;
             SearchResultPaged searchResultPaged;
             if (_scrapeMyself)
-                searchResultPaged =
-                    await _searchService.FindFightsScrapeAsync(searchQuery, searchQuery.SearchParams.Sfn.Value);
+            {
+                searchResultPaged = await _searchService.FindFightsScrapeAsync(searchQuery, searchQuery.SearchParams.Sfn.Value);
+            }
             else
+            {
                 searchResultPaged = await _searchService.FindFightsAsync(searchQuery);
+            }
+
             return searchResultPaged;
         }
 

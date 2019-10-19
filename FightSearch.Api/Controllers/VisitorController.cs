@@ -20,10 +20,11 @@ namespace FightSearch.Api.Controllers
 
         [Route("LinkClicked", Name = "LinkClicked")]
         [HttpPost]
-        public async Task<ActionResult<bool>> LinkClicked([FromBody] int id)
+        //public async Task<ActionResult<bool>> LinkClicked([FromBody] int id)
+        public IActionResult LinkClicked([FromBody] int id)
         {
-            await _visitorTrackingService.LinkClicked(id);
-            return true;
+            //await _visitorTrackingService.LinkClicked(id);
+            return Ok(true);
         }
     }
 }

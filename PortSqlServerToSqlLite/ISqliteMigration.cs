@@ -8,5 +8,6 @@ namespace PortSqlServerToSqlLite
     public interface ISqLiteMigration
     {
         void DoMigration();
+        void Misc();
     }
 }

@@ -54,4 +54,10 @@
     <Folder Include="logs\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\UfcSqlite.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

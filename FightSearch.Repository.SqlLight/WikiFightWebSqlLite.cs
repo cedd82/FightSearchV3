@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FightSearch.Repository.SqlLight
 {
-    //[Table("WikiFightWeb")]
+    [Table("WikiFightWeb")]
     public partial class WikiFightWebSqlLite
     {
         public int Id { get; set; }
@@ -61,6 +61,8 @@ namespace FightSearch.Repository.SqlLight
         //[Required]
         //[StringLength(256)]
         public string Promotion { get; set; }
+        [StringLength(4)]
+        public string YearHeld { get; set; }
 
         //[ForeignKey("EventId")]
         //[InverseProperty("WikiFightWeb")]

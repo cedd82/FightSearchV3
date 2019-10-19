@@ -80,5 +80,10 @@ namespace PortSqlServerToSqlLite
             var test = xxx;
         }
 
+        public void Misc()
+        {
+            var xxx = _ufcContextLite.WikiFightWebSqlLite.Take(10);
+            var test = xxx;
+        }
     }
 }

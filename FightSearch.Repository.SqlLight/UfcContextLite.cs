@@ -10,20 +10,20 @@ namespace FightSearch.Repository.SqlLight
             : base(options)
         { }
 
-        public UfcContextLite()
-        {
+        //public UfcContextLite()
+        //{
             
-        }
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Set the filename of the database to be created
             //optionsBuilder.UseSqlite("Data Source=db.UfcSqlite");
 
-            optionsBuilder.UseSqlite("Filename=UfcSqlite.db", options =>
-            {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
+            //optionsBuilder.UseSqlite("data source=.\\UfcSqlite.sqlite", options =>
+            //{
+            //    options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+            //});
 
 
             base.OnConfiguring(optionsBuilder);
@@ -39,10 +39,12 @@ namespace FightSearch.Repository.SqlLight
         //public virtual DbSet<WikiEvent> WikiEvent { get; set; }
         //public virtual DbSet<WikiFight> WikiFight { get; set; }
         public virtual DbSet<WikiFightWebSqlLite> WikiFightWebSqlLite { get; set; }
+        public virtual DbSet<WatchCountSqLite> WatchCountSqLite { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<WikiFightWebSqlLite>().ToTable("WikiFightWeb", "main");
+            //modelBuilder.Entity<WikiFightWebSqlLite>().ToTable("WikiFightWeb", "main");
+            modelBuilder.Entity<WikiFightWebSqlLite>().ToTable("WikiFightWeb");
             modelBuilder.Entity<WikiFightWebSqlLite>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -57,10 +59,12 @@ namespace FightSearch.Repository.SqlLight
                 entity.Property(e => e.FightResultType).IsUnicode(false);
                 entity.Property(e => e.FightResultSubType).IsUnicode(false);
 
-                //entity.HasOne(d => d.Event)
-                //    .WithMany(p => p.WikifightWeb)
-                //    .HasForeignKey(d => d.EventId)
-                //    .HasConstraintName("FK_wikifightWeb_WikiEvent");
+            });
+
+            modelBuilder.Entity<WatchCountSqLite>().ToTable("WatchCount");
+            modelBuilder.Entity<WatchCountSqLite>(entity =>
+            {
+                entity.HasKey(e => e.WikiFightId);
             });
         }
     }

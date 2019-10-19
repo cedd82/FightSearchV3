@@ -9,6 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FightSearch.Common\FightSearch.Common.csproj" />
+    <ProjectReference Include="..\FightSearch.Repository.SqlLight\FightSearch.Repository.SqlLight.csproj" />
     <ProjectReference Include="..\FightSearch.Repository.Sql\FightSearch.Repository.Sql.csproj" />
   </ItemGroup>
 </Project>

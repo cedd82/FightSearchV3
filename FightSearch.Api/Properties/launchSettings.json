@@ -12,7 +12,8 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/fightername/GetUniqueFighterNames",
+      "launchUrl": "swagger/ui/index.html",
+      "launchUrl2": "api/fightername/GetUniqueFighterNames",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -29,7 +30,8 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/fightername/GetUniqueFighterNames",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger/ui/index.html",
+      "launchUrl2": "{Scheme}://{ServiceHost}:{ServicePort}/api/fightername/GetUniqueFighterNames",
       "httpPort": 55561
       //"useSSL": true,
       //"sslPort": 44336
