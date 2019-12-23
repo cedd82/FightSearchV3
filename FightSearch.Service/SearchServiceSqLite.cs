@@ -112,7 +112,7 @@ namespace FightSearch.Service
                 return query;
             }
             string fighterName = searchParams.Fighter1Name;
-            Expression<Func<WikiFightWebSqlLite, bool>> where = e => e.Fighter1Name.Equals(fighterName) || e.Fighter2Name.Equals(fighterName);
+            Expression<Func<WikiFightWebSqlLite, bool>> where = e => e.Fighter1Name.Equals(fighterName, StringComparison.CurrentCultureIgnoreCase) || e.Fighter2Name.Equals(fighterName, StringComparison.CurrentCultureIgnoreCase);
             query = query.Where(where);
             //query = query.Where(e => e.Fighter1Name.Equals(fighterName) || e.Fighter2Name.Equals(fighterName));
             return query;

@@ -20,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DebugApps", "DebugApps", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.SqlServer.EFPowerToolGenerator", "Repository.SqlServer.EFPowerToolGenerator\Repository.SqlServer.EFPowerToolGenerator.csproj", "{56258D91-03AC-4838-98BB-D1725F39ABBD}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{69CF757B-7302-4976-9F12-74E12A35FF0E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortSqlServerToSqlLite", "PortSqlServerToSqlLite\PortSqlServerToSqlLite.csproj", "{A9D3D497-BA2D-4A58-BD8D-206A5F7FBCCB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FightSearch.Repository.SqlLight", "FightSearch.Repository.SqlLight\FightSearch.Repository.SqlLight.csproj", "{5A887081-EED5-4651-B5DE-4DA4287CC739}"
@@ -52,10 +50,6 @@ Global
 		{56258D91-03AC-4838-98BB-D1725F39ABBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56258D91-03AC-4838-98BB-D1725F39ABBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56258D91-03AC-4838-98BB-D1725F39ABBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69CF757B-7302-4976-9F12-74E12A35FF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69CF757B-7302-4976-9F12-74E12A35FF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69CF757B-7302-4976-9F12-74E12A35FF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69CF757B-7302-4976-9F12-74E12A35FF0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9D3D497-BA2D-4A58-BD8D-206A5F7FBCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9D3D497-BA2D-4A58-BD8D-206A5F7FBCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9D3D497-BA2D-4A58-BD8D-206A5F7FBCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger/ui/index.html",
+      "launchUrl": "api/swagger/ui/index.html",
       "launchUrl2": "api/fightername/GetUniqueFighterNames",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

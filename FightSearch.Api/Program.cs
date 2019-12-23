@@ -1,4 +1,6 @@
-﻿namespace FightSearch.Api
+﻿using System.IO;
+
+namespace FightSearch.Api
 {
     using System;
 
@@ -25,30 +27,35 @@
             {
                 logger.Info("Setting up host");
                 IWebHostBuilder builder = WebHost.CreateDefaultBuilder(args)
-                                                 .UseStartup<Startup>()
-                                                 .ConfigureAppConfiguration((hostingContext, config) =>
-                                                 {
-                                                     IHostingEnvironment environment = hostingContext.HostingEnvironment;
-                                                     config.AddEnvironmentVariables();
-                                                     ////.AddJsonFile("project.json", optional: true) // When app is published
-                                                     ////.AddJsonFile("certificate.json", optional: true, reloadOnChange: true)
-                                                     //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                                                     //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
-                                                     //.AddJsonFile($"certificate.{env}.json", optional: true, reloadOnChange: true);
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseStartup<Startup>()
+                    .ConfigureAppConfiguration((hostingContext, config) =>
+                    {
+                        IHostingEnvironment env = hostingContext.HostingEnvironment;
+                        config.AddEnvironmentVariables();
+                        config
+                            .AddJsonFile(path: "appsettings.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile(path: $"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                         ////.AddJsonFile("project.json", optional: true) // When app is published
+                         ////.AddJsonFile("certificate.json", optional: true, reloadOnChange: true)
+                         //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                         //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
+                         //.AddJsonFile($"certificate.{env}.json", optional: true, reloadOnChange: true);
 
-                                                     //IConfigurationRoot configurationRoot = config.Build();
-                                                     ////IConfigurationSection certificateSettings = configurationRoot.GetSection("certificateSettings");
-                                                     //Configuration = configurationRoot;
-                                                     //SettingsProvider.SetConfiguration(configurationRoot);
-                                                     //SettingsProvider.SetHostingEnvironment(environment);
-                                                 })
-                                                 .ConfigureLogging((hostContext, configLogging) =>
-                                                 {
-                                                     configLogging.ClearProviders();
-                                                     configLogging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
-                                                     //LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString("DefaultConnection");
-                                                 })
-                                                 .UseNLog();
+                         //IConfigurationRoot configurationRoot = config.Build();
+                         ////IConfigurationSection certificateSettings = configurationRoot.GetSection("certificateSettings");
+                         //Configuration = configurationRoot;
+                         //SettingsProvider.SetConfiguration(configurationRoot);
+                         //SettingsProvider.SetHostingEnvironment(environment);
+                     })
+                     .ConfigureLogging((hostContext, configLogging) =>
+                     {
+                         configLogging.ClearProviders();
+                         configLogging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
+                         //LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString("DefaultConnection");
+                     })
+                    //.UseIISIntegration()
+                    .UseNLog();
                 logger.Info("Building host");
                 IWebHost webHost = builder.Build();
                 logger.Info("Run host");
@@ -64,12 +71,6 @@
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 LogManager.Shutdown();
             }
-
-            //CreateWebHostBuilder(args).Build().Run();
         }
-
-        //public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        //	WebHost.CreateDefaultBuilder(args)
-        //		.UseStartup<Startup>();
     }
 }
