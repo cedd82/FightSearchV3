@@ -26,8 +26,8 @@ namespace PortSqlServerToSqlLite
         //private void DoWork(object state)
         private void DoWork()
         {
-            //_sqLiteMigration.DoMigration();
-            _sqLiteMigration.Misc();
+            _sqLiteMigration.DoMigration();
+            //_sqLiteMigration.Misc();
         }
  
         public Task StopAsync(CancellationToken cancellationToken)

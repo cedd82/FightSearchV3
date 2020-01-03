@@ -13,7 +13,9 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "api/swagger/ui/index.html",
-      "launchUrl2": "api/fightername/GetUniqueFighterNames",
+      "launchUrlDev": "api/swagger/ui/index.html",
+      "launchUrlSpa": "index.html",
+      "launchUrl3": "api/fightername/GetUniqueFighterNames",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -21,7 +23,10 @@
     "FightSearch.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/fightername/GetUniqueFighterNames",
+      "launchUrl": "api/swagger/ui/index.html",
+      "launchUrlDev": "api/swagger/ui/index.html",
+      "launchUrlSpa": "index.html",
+      "launchUrl3": "api/fightername/GetUniqueFighterNames",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

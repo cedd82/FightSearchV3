@@ -3,7 +3,7 @@ using System.Net;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System.Diagnostics;
-
+using System.IO;
 using FightSearch.Api.helpers;
 using FightSearch.Api.Middlewear;
 using FightSearch.Common;
@@ -14,16 +14,20 @@ using FightSearch.Service;
 using FightSearch.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
 using Swashbuckle.AspNetCore.Swagger;
+using WebEssentials.AspNetCore.Pwa;
 
 namespace FightSearch.Api
 {
@@ -53,7 +57,7 @@ namespace FightSearch.Api
             //    client.Database.Migrate();
             //}
         }
-
+       
         private IConfiguration Configuration { get; }
         private readonly string corsPolicy = "Cors";
 
@@ -67,32 +71,57 @@ namespace FightSearch.Api
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
-            app.UseMiddleware<ExceptionHandler>();
-            app.UseHsts();
-            //app.UseStaticFiles();
-            //if (!environment.IsDevelopment())
-            //{
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
-
-            //app.UseCors(options =>
-            //{
-            //    options
-            //        .AllowAnyOrigin()
-            //        .AllowAnyMethod()
-            //        .AllowAnyHeader(); 
-            //});
-            app.UseCors(corsPolicy);
+            if (!environment.IsDevelopment())
+            {
+                app.UseHsts();
+            }
             app.UseHttpsRedirection();
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseMiddleware<ExceptionHandler>();
+            app.UseCors(corsPolicy);
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                
+                //FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
+                FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory()),
+            });
+            
+            
+            //var dir = Directory.GetCurrentDirectory();
+            //app.Use(async (context, next) =>
+            //{
+            //    var queryPath = context.Request.Path.ToString(); 
+            //    // Do work that doesn't write to the Response.
+            //    await next.Invoke();
+            //    // Do logging or other work that doesn't write to the Response.
+            //    Debug.WriteLine(queryPath);
+                
+            //});
+
+            // switch this to use and it wont terminate the request
+            // app.Run does
+            //app.Run(async context =>
+            //{
+
+            //    await context.Response.WriteAsync("Hello from 2nd delegate.");
+            //});
+            
+            
+
             app.UseSwagger(c => { c.RouteTemplate = "/api/swagger/{documentname}/swagger.json"; });
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Fight Search Api V1");
                 c.RoutePrefix = "api/swagger/ui";
             });
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller}/{action}");
+                #if !DEBUG
+                routes.MapRoute("Spa", "{*url}", defaults: new { controller = "Home", action = "Spa" });
+                #endif
+            });
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -122,7 +151,8 @@ namespace FightSearch.Api
                 //options.SerializerSettings.Formatting = Formatting.Indented;
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                
+            services.AddSingleton<IFileProvider>(  
+                new PhysicalFileProvider(Directory.GetCurrentDirectory()));
             services.AddCors(options =>
             {
                 options.AddPolicy(corsPolicy, builder => builder
@@ -183,6 +213,12 @@ namespace FightSearch.Api
             services.AddScoped<ISearchService, SearchServiceSqLite>();
             //services.AddScoped<IFighterNameService, FighterNameService>();
             services.AddScoped<IFighterNameService, FighterNameServiceSqLite>();
+            //services.AddProgressiveWebApp(new PwaOptions
+            //{
+            //    RegisterServiceWorker = false,
+            //    RegisterWebmanifest = false,
+            //    OfflineRoute = "offline"
+            //});
         }
     }
 }
